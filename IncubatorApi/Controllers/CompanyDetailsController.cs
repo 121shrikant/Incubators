@@ -1,39 +1,64 @@
-﻿using System;
+﻿using IncubatorBusinessLayer.Interface;
+using IncubatorBusinessLayer.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace IncubatorsApi.Controllers
 {
     public class CompanyDetailsController : ApiController
     {
-        // GET api/CompanyDetails
-        public IEnumerable<string> Get()
+        private ICompanyDetailsService _companyDetailsService;
+        public CompanyDetailsController(ICompanyDetailsService _companyDetailsService)
         {
-            return new string[] { "value1", "value2" };
+            this._companyDetailsService = _companyDetailsService;
         }
 
-        // GET api/CompanyDetails/5
-        public string Get(int id)
+        // GET api/CompanyDetails/GetAllCompanyDetails
+        [HttpGet]
+        [Route("api/CompanyDetails/GetAllCompanyDetails")]
+        public IEnumerable<CompanyDetailsVM> GetAllCompanyDetails()
         {
-            return "value";
+            return _companyDetailsService.GetAllCompanyDetails();
+        }
+
+        // GET api/CompanyDetails/GetCompanyById/5
+        [HttpGet]
+        [Route("api/CompanyDetails/GetCompanyById/{id}")]
+        public CompanyDetailsVM GetCompanyById(int id)
+        {
+            return _companyDetailsService.GetCompanyById(id);
         }
 
         // POST api/CompanyDetails
-        public void Post([FromBody]string value)
+        [HttpPost]
+        [Route("api/CompanyDetails/AddCompany")]
+        public void AddCompany([FromBody]string value)
         {
         }
 
-        // PUT api/CompanyDetails/5
-        public void Put(int id, [FromBody]string value)
+        // PUT api/CompanyDetails/UpdateCompany/5
+        [HttpPut]
+        [Route("api/CompanyDetails/UpdateCompany/{id}")]
+        public void UpdateCompany(int id, [FromBody]string value)
         {
         }
 
-        // DELETE api/CompanyDetails/5
-        public void Delete(int id)
+        // PUT api/CompanyDetails/ActivateCompany/5
+        //[HttpPut]
+        [HttpGet]
+        [Route("api/CompanyDetails/ActivateCompany/{id}")]
+        public bool ActivateCompany(int id)
         {
+            return _companyDetailsService.ActivateCompany(id);
+        }
+
+        // PUT api/CompanyDetails/DeactivateCompany/5
+        //[HttpPut]
+        [HttpGet]
+        [Route("api/CompanyDetails/DeactivateCompany/{id}")]
+        public bool DeactivateCompany(int id)
+        {
+            return _companyDetailsService.DeactivateCompany(id);
         }
     }
 }

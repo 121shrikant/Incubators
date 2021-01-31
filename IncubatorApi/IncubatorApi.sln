@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IncubatorApi", "IncubatorApi.csproj", "{1FB86F7A-B215-4E9D-A988-B6555E81DEC1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Incubator.Api", "Incubator.Api.csproj", "{1FB86F7A-B215-4E9D-A988-B6555E81DEC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Incubator.Data", "..\IncubatorData\Incubator.Data.csproj", "{19847413-1CD3-445E-813B-74885B7D2B7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Incubator.BusinessLayer", "..\IncubatorBusinessLayer\Incubator.BusinessLayer.csproj", "{66ADAF3E-906A-4E03-8509-A5C88B8859C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{1FB86F7A-B215-4E9D-A988-B6555E81DEC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1FB86F7A-B215-4E9D-A988-B6555E81DEC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1FB86F7A-B215-4E9D-A988-B6555E81DEC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19847413-1CD3-445E-813B-74885B7D2B7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19847413-1CD3-445E-813B-74885B7D2B7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19847413-1CD3-445E-813B-74885B7D2B7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19847413-1CD3-445E-813B-74885B7D2B7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66ADAF3E-906A-4E03-8509-A5C88B8859C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66ADAF3E-906A-4E03-8509-A5C88B8859C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66ADAF3E-906A-4E03-8509-A5C88B8859C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66ADAF3E-906A-4E03-8509-A5C88B8859C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

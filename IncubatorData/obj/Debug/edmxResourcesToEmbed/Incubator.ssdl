@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="GrowUpIncubatorModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CompanyDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CompanyStatus" Type="int" Nullable="false" />
+    <Property Name="CompanyName" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="ManagingPartner" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="LaunchedYear" Type="int" Nullable="false" />
+    <Property Name="Stage" Type="int" Nullable="false" />
+    <Property Name="NumberOfMembers" Type="int" Nullable="false" />
+    <Property Name="WebSite" Type="nvarchar" MaxLength="100" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Country" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="City" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Pincode" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StageDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StageInfo" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="RoleType" Type="int" />
+  </EntityType>
+  <Association Name="FK_StageDetails_CompanyDetails_Id_Stage">
+    <End Role="StageDetails" Type="Self.StageDetails" Multiplicity="1" />
+    <End Role="CompanyDetails" Type="Self.CompanyDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StageDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CompanyDetails">
+        <PropertyRef Name="Stage" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserDetails_CompanyDetails_Id_CreatedBy">
+    <End Role="UserDetails" Type="Self.UserDetails" Multiplicity="1" />
+    <End Role="CompanyDetails" Type="Self.CompanyDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserDetails">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CompanyDetails">
+        <PropertyRef Name="CreatedBy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="GrowUpIncubatorModelStoreContainer">
+    <EntitySet Name="CompanyDetails" EntityType="Self.CompanyDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StageDetails" EntityType="Self.StageDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_StageDetails_CompanyDetails_Id_Stage" Association="Self.FK_StageDetails_CompanyDetails_Id_Stage">
+      <End Role="StageDetails" EntitySet="StageDetails" />
+      <End Role="CompanyDetails" EntitySet="CompanyDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserDetails_CompanyDetails_Id_CreatedBy" Association="Self.FK_UserDetails_CompanyDetails_Id_CreatedBy">
+      <End Role="UserDetails" EntitySet="UserDetails" />
+      <End Role="CompanyDetails" EntitySet="CompanyDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
