@@ -16,33 +16,31 @@ namespace IncubatorBusinessLayer.Service
         {
             List<CompanyDetail> dbCompanyList = new List<CompanyDetail>();
             bool isAdmin = AccountService.IsAdmin();
+            List<CompanyDetailsVM> companyDetails = new List<CompanyDetailsVM>();
 
             using (GrowUpIncubatorEntities db = new GrowUpIncubatorEntities())
             {
-                dbCompanyList = db.CompanyDetails.Where(x => isAdmin || (!isAdmin && x.CompanyStatus == (int)CompanyStatusEnum.Activate)).ToList();
+                companyDetails = db.CompanyDetails.Where(x => isAdmin || (!isAdmin && x.CompanyStatus == (int)CompanyStatusEnum.Activate))
+                                .Join(db.StageDetails, 
+                                            x => x.Stage, 
+                                            y => y.Id, (cd, sd) => new CompanyDetailsVM {
+                                                Id = cd.Id,
+                                                CompanyStatus = (CompanyStatusEnum)cd.CompanyStatus,
+                                                CompanyName = cd.CompanyName,
+                                                ManagingPartner = cd.ManagingPartner,
+                                                LaunchedYear = cd.LaunchedYear,
+                                                Stage = (CompanyStageEnum)cd.Stage,
+                                                NumberOfMembers = cd.NumberOfMembers,
+                                                WebSite = cd.WebSite,
+                                                Email = cd.Email,
+                                                Phone = cd.Phone,
+                                                Country = cd.Country,
+                                                City = cd.City,
+                                                Pincode = cd.Pincode,
+                                                CreatedBy = cd.CreatedBy,
+                                                StageString = sd.StageInfo
+                                            }).ToList();
             }
-            // Can use AutoMapper
-            List<CompanyDetailsVM> companyDetails = new List<CompanyDetailsVM>();
-            if (dbCompanyList.Count > 0) {
-                companyDetails = dbCompanyList.Select(x => new CompanyDetailsVM()
-                {
-                    Id = x.Id,
-                    CompanyStatus = (CompanyStatusEnum)x.CompanyStatus,
-                    CompanyName = x.CompanyName,
-                    ManagingPartner = x.ManagingPartner,
-                    LaunchedYear = x.LaunchedYear,
-                    Stage = (CompanyStageEnum)x.Stage,
-                    NumberOfMembers = x.NumberOfMembers,
-                    WebSite = x.WebSite,
-                    Email = x.Email,
-                    Phone = x.Phone,
-                    Country = x.Country,
-                    City = x.City,
-                    Pincode = x.Pincode,
-                    CreatedBy = x.CreatedBy
-                }).ToList();
-            }
-                
             return companyDetails;
         }
 

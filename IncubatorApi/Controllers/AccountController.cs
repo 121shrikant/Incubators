@@ -17,6 +17,12 @@ namespace IncubatorApi.Controllers
         {
             this._accountService = _accountService;
         }
+
+        /// <summary>
+        /// authenticate user as per user name and password
+        /// </summary>
+        /// <param name="loginDetails"></param>
+        /// <returns>Return user details if successfully login else return null object</returns>
         [HttpPost]
         [Route("api/AccountController/Login")]
         public UserDetailsVm Login([FromBody] LoginDetails loginDetails)

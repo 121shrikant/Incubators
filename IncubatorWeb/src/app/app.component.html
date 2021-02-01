@@ -1,6 +1,11 @@
-<div *ngIf="validUser()" >
-    LoggedIn: {{userData.UserName}} <br>
-    <button (click)="logoutAndNavigate()">Logout</button>
+<div *ngIf="validUser()" class="row ">
+    <div class="container">
+        <div class="row ml-auto align-items-center justify-content-end">
+            <a class="m-0 mr-3 mr-auto" [routerLink]="['']">Company Details</a>
+            <label class="m-0 mr-3"> User: {{userData.UserName}} <span *ngIf="userData.RoleType == 1"> - Admin</span> </label>
+            <button class="btn " (click)="logoutAndNavigate()">Logout</button>
+        </div>
+    </div>
 </div>
 
 <app-spinner></app-spinner>

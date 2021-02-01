@@ -7,6 +7,6 @@ namespace IncubatorBusinessLayer.Models
 {
     public class CompanyDetailsVM : CompanyDetails
     {
-
+        public string StageString { get; set; }
     }
 }

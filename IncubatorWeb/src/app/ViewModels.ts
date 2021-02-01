@@ -26,6 +26,7 @@ export interface CompanyDetails
 }
 export interface CompanyDetailsVM extends CompanyDetails
 {
+    StageString: string;
 }
 export interface LoginDetails
 {

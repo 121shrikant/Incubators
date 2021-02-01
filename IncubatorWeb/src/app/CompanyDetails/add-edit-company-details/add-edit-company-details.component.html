@@ -22,7 +22,7 @@
         <div class="form-group row">
             <label for= "CompanyName" class="col-sm-2 col-form-label">Company Name</label>
             <div class="col-sm-10">
-                <input id="userName" type="text" class="form-control" formControlName="CompanyName" placeholder="Enter Company Name"
+                <input id="CompanyName" type="text" class="form-control" formControlName="CompanyName" placeholder="Enter Company Name"
                 [ngClass]="{'border border-danger': CheckError('CompanyName')}">
             </div>
         </div>
@@ -30,7 +30,7 @@
         <div class="form-group row">
             <label for= "ManagingPartner" class="col-sm-2 col-form-label">Managing Partner</label>
             <div class="col-sm-10">
-                <input id="userName" type="text" class="form-control" formControlName="ManagingPartner" placeholder="Managing Partner"
+                <input id="ManagingPartner" type="text" class="form-control" formControlName="ManagingPartner" placeholder="Managing Partner"
                 [ngClass]="{'border border-danger': CheckError('ManagingPartner')}">
             </div>
         </div>
@@ -38,7 +38,7 @@
         <div class="form-group row">
             <label for= "LaunchedYear" class="col-sm-2 col-form-label">Launched Year</label>
             <div class="col-sm-10">
-                <input id="userName" type="number" class="form-control" formControlName="LaunchedYear" placeholder="Enter Launched Year"
+                <input id="LaunchedYear" type="number" class="form-control" formControlName="LaunchedYear" placeholder="Enter Launched Year"
                 [ngClass]="{'border border-danger': CheckError('LaunchedYear')}">
             </div>
         </div>
@@ -60,7 +60,7 @@
         <div class="form-group row">
             <label for= "NumberOfMembers" class="col-sm-2 col-form-label">No. Of Members</label>
             <div class="col-sm-10">
-                <input id="userName" type="number" class="form-control" formControlName="NumberOfMembers" placeholder="Enter No. Of Members"
+                <input id="NumberOfMembers" type="number" class="form-control" formControlName="NumberOfMembers" placeholder="Enter No. Of Members"
                 [ngClass]="{'border border-danger': CheckError('NumberOfMembers')}">
             </div>
         </div>
@@ -68,7 +68,7 @@
         <div class="form-group row">
             <label for= "WebSite" class="col-sm-2 col-form-label">Web-Site</label>
             <div class="col-sm-10">
-                <input id="userName" type="text" class="form-control" formControlName="WebSite" placeholder="Enter Web-Site"
+                <input id="WebSite" type="text" class="form-control" formControlName="WebSite" placeholder="Enter Web-Site"
                 [ngClass]="{'border border-danger': CheckError('WebSite')}">
             </div>
         </div>
@@ -76,7 +76,7 @@
         <div class="form-group row">
             <label for= "Email" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-10">
-                <input id="userName" type="text" class="form-control" formControlName="Email" placeholder="Enter Email"
+                <input id="Email" type="text" class="form-control" formControlName="Email" placeholder="Enter Email"
                 [ngClass]="{'border border-danger': CheckError('Email')}">
             </div>
         </div>
@@ -84,15 +84,21 @@
         <div class="form-group row">
             <label for= "Phone" class="col-sm-2 col-form-label">Phone</label>
             <div class="col-sm-10">
-                <input id="userName" type="number" class="form-control" formControlName="Phone" placeholder="Enter Phone"
+                <input id="Phone" type="number" class="form-control" formControlName="Phone" placeholder="Enter Phone"
                 [ngClass]="{'border border-danger': CheckError('Phone')}">
             </div>
         </div>
-
+        <div class="form-group row">
+            <label for= "Country" class="col-sm-2 col-form-label">Country</label>
+            <div class="col-sm-10">
+                <input id="Country" type="text" class="form-control" formControlName="Country" placeholder="Enter Country"
+                [ngClass]="{'border border-danger': CheckError('Country')}">
+            </div>
+        </div>
         <div class="form-group row">
             <label for= "City" class="col-sm-2 col-form-label">City</label>
             <div class="col-sm-10">
-                <input id="userName" type="text" class="form-control" formControlName="City" placeholder="Enter City"
+                <input id="City" type="text" class="form-control" formControlName="City" placeholder="Enter City"
                 [ngClass]="{'border border-danger': CheckError('City')}">
             </div>
         </div>
@@ -100,7 +106,7 @@
         <div class="form-group row">
             <label for= "Pincode" class="col-sm-2 col-form-label">Pincode</label>
             <div class="col-sm-10">
-                <input id="userName" type="number" class="form-control" formControlName="Pincode" placeholder="Enter Pincode"
+                <input id="Pincode" type="number" class="form-control" formControlName="Pincode" placeholder="Enter Pincode"
                 [ngClass]="{'border border-danger': CheckError('Pincode')}">
             </div>
         </div>
@@ -108,7 +114,7 @@
         <div class="row">
             <div class="col-sm-2"></div>
             <div class="col-sm-10">
-                <small class="form-text text-danger" *ngIf="!addEditForm.valid">
+                <small class="form-text text-danger mb-3" *ngIf="!addEditForm.valid">
                     Please Enter Valid Details.!
                 </small>
                 <button class="btn btn-primary mr-4" (click)= "Cancel()">Cancel</button>

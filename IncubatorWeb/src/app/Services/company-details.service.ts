@@ -27,9 +27,9 @@ export class CompanyDetailsService {
   }
 
   ActivateCompany(id: number): Observable<any> {
-    return this.http.get('CompanyDetails/ActivateCompany/' + id );
+    return this.http.put('CompanyDetails/ActivateCompany/', id );
   }
   DeactivateCompany(id: number): Observable<any> {
-    return this.http.get('CompanyDetails/DeactivateCompany/' + id );
+    return this.http.put('CompanyDetails/DeactivateCompany/', id );
   }
 }

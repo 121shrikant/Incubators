@@ -8,6 +8,7 @@ import { retry, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { SharedService } from '../Services/shared.service';
+import { UserDetailsVm } from '../ViewModels';
 
 
 @Injectable()
@@ -21,7 +22,10 @@ export class RetryInterceptor implements HttpInterceptor {
                catchError((err: HttpErrorResponse) => {
                     console.log('500 status: ', err);
                     if (err.status === 401) {
-                         this.router.navigate(['/unauthorized']);
+                         localStorage.removeItem('currentUser');
+                         this._sharedService.currentUserSubject.next(<UserDetailsVm>{});
+                         alert('unauthorized');
+                         this.router.navigate(['/login']);
                     } else {
                         alert('Network Error');
                     }

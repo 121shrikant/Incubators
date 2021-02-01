@@ -1,0 +1,71 @@
+CREATE DATABASE GrowUpIncubator
+Go
+
+Use GrowUpIncubator
+Go
+
+CREATE TABLE UserDetails
+(
+    Id INT PRIMARY KEY IDENTITY,
+    UserName NVARCHAR(50),
+    Password NVARCHAR(50),
+    RoleType INT
+)
+Go
+
+CREATE TABLE StageDetails
+(
+    Id INT PRIMARY KEY IDENTITY,
+    StageInfo NVARCHAR(100) NOT NULL
+)
+Go
+
+CREATE TABLE CompanyDetails
+(
+    Id INT PRIMARY KEY IDENTITY,
+    CompanyStatus int NOT NULL,
+    CompanyName NVARCHAR(500) NOT NULL,
+    ManagingPartner NVARCHAR(100) NOT NULL,
+    LaunchedYear  INT NOT NULL,
+    Stage INT NOT NULL,
+    NumberOfMembers INT NOT NULL,
+    WebSite NVARCHAR(100),
+    Email   NVARCHAR(100) NOT NULL,
+    Phone   NVARCHAR(20) NOT NULL,
+    Country NVARCHAR(100) NOT NULL,
+    City    NVARCHAR(100) NOT NULL,
+    Pincode INT NOT NULL,
+    CreatedBy INT NOT NULL,
+
+    CONSTRAINT FK_UserDetails_CompanyDetails_Id_CreatedBy FOREIGN KEY (CreatedBy)
+    REFERENCES UserDetails(Id),
+	CONSTRAINT FK_StageDetails_CompanyDetails_Id_Stage FOREIGN KEY (Stage)
+    REFERENCES StageDetails(Id)
+)
+Go
+
+--Insert into UserDetails values ('Mark', 'admin123', 1)
+--Insert into UserDetails values ('Steve', 'dev123', 0)
+--Insert into UserDetails values ('Ben', 'dev123', 0)
+
+--Insert into StageDetails values ('Idea Stage');
+--Insert into StageDetails values ('Prototype Developed');
+--Insert into StageDetails values ('Private Beta');
+--Insert into StageDetails values ('Public Beta');
+--Insert into StageDetails values ('Launched');
+--Insert into StageDetails values ('Revenue greater than Rs. 10 Lakhs over past year');
+ 
+--Insert into CompanyDetails values (1, 'Samsung', 'suresh', 2020, 5, 15,'www.Samsung.com', 'Samsung@gmail.com', 9876543210, 'India','Delhi', 422007, 1 )
+--Insert into CompanyDetails values (1, 'iphone', 'ramesh', 2019, 3, 10, 'www.iphone.com', 'iphone@gmail.com', 6587421221, 'India','Mumbai', 468552, 1)
+--Insert into CompanyDetails values (1, 'MI', 'jay', 2020, 2, 5, null, 'MI@gmail.com', 8564128795, 'India','Pune', 225544, 2 )
+--Insert into CompanyDetails values (0, 'Sony', 'nishan', 2021, 1, 6, null, 'Sony@gmail.com', 2345657890, 'India','Mumbai', 669987, 3)
+--Go
+
+select * from UserDetails
+select * from CompanyDetails
+select * from StageDetails
+
+
+
+ALTER TABLE CompanyDetails
+ALTER COLUMN CreatedBy int NOT NULL;

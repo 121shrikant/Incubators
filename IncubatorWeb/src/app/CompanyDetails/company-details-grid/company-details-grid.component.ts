@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { CompanyDetailsService } from 'src/app/Services/company-details.service';
-import { CompanyDetailsVM } from 'src/app/ViewModels';
+import { CompanyDetailsVM, UserDetailsVm } from 'src/app/ViewModels';
 import { SortDescriptor, State } from '@progress/kendo-data-query';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -21,14 +21,17 @@ export class CompanyDetailsGridComponent implements OnInit {
     sort: Array<SortDescriptor>()
   }; 
   private _subscriptions: Subscription[] = [];
-
+  userDetailsVm = <UserDetailsVm>{};
   constructor(private _companyDetailsService: CompanyDetailsService,
               private _router: Router,
               private _sharedService: SharedService
               ) { }
 
   ngOnInit(): void {
-    
+    this._sharedService.currentUserSubject.subscribe(res => {
+      this.userDetailsVm = res;
+    });
+    this.GetAllCompanyDetails();
   }
   GetAllCompanyDetails() {
     this._subscriptions.push(

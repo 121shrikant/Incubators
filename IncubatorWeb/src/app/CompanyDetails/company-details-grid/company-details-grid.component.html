@@ -1,6 +1,8 @@
 <div class= "container">
 <div class="row my-5">
+    <div class="col-12">
         <button class="btn btn-primary" (click)= "AddRecord()">Add Company Details</button>
+    </div>
 </div>
 <div class="my-5">
     <kendo-grid
@@ -10,6 +12,7 @@
           [sort]="state.sort || []"
           [sortable]="false"
           [pageable]="true"
+          [resizable]="true"
           (dataStateChange)="dataStateChange($event)"
         >
         <kendo-grid-column 
@@ -21,20 +24,21 @@
                     </ng-template>
         </kendo-grid-column>
         <kendo-grid-column 
-                    title = "Id" 
-                    field="Id"
-                    [width]="100"
-                    >
-        </kendo-grid-column>
-        <kendo-grid-column 
+                    *ngIf="userDetailsVm.RoleType == 1"
                     title = "Status" 
                     field="CompanyStatus"
                     [width]="200"
                     >
                     <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-                        <button class="btn btn-danger" *ngIf="dataItem.CompanyStatus == 1 " (click)= "Deactivate(dataItem.Id)">Deactivate</button>
-                        <button class="btn btn-success" *ngIf="dataItem.CompanyStatus != 1 " (click)= "Activate(dataItem.Id)">Activate</button>
+                        <button class="statusBtn btn btn-danger" *ngIf="dataItem.CompanyStatus != 1 " (click)= "Activate(dataItem.Id)">Deactivated</button>
+                        <button class="statusBtn btn btn-success" *ngIf="dataItem.CompanyStatus == 1 " (click)= "Deactivate(dataItem.Id)">Activated</button>
                     </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column 
+                    title = "Id" 
+                    field="Id"
+                    [width]="100"
+                    >
         </kendo-grid-column>
         <kendo-grid-column 
                     title = "Company Name" 
@@ -51,12 +55,12 @@
         <kendo-grid-column 
                     title = "Launched Year" 
                     field="LaunchedYear"
-                    [width]="200"
+                    [width]="100"
                     >
         </kendo-grid-column>
         <kendo-grid-column 
                     title = "Stage" 
-                    field="Stage"
+                    field="StageString"
                     [width]="200"
                     >
         </kendo-grid-column>
@@ -81,6 +85,12 @@
         <kendo-grid-column
                     title = "Phone" 
                     field="Phone"
+                    [width]="120"
+                    >
+        </kendo-grid-column>
+        <kendo-grid-column
+                    title = "Country" 
+                    field="Country"
                     [width]="100"
                     >
         </kendo-grid-column>

@@ -1,6 +1,7 @@
 ﻿using IncubatorApi.Controllers;
 using IncubatorBusinessLayer.Interface;
 using IncubatorBusinessLayer.Models;
+using IncubatorBusinessLayer.Service;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
@@ -19,62 +20,126 @@ namespace IncubatorsApi.Controllers
         }
 
         // GET api/CompanyDetails/GetAllCompanyDetails
+        /// <summary>
+        /// Returns company details active for non admin and all record for admin
+        /// </summary>
+        /// <returns>list of company of type CompanyDetailsVM</returns>
         [HttpGet]
         [Route("api/CompanyDetails/GetAllCompanyDetails")]
         public HttpResponseMessage GetAllCompanyDetails()
         {
-            //string userName = Thread.CurrentPrincipal.Identity.Name;
-            //if (userName != "")
-            //{
+            string userName = Thread.CurrentPrincipal.Identity.Name;
+            if (userName != "")
+            {
                 return Request.CreateResponse(HttpStatusCode.OK, _companyDetailsService.GetAllCompanyDetails());
-            //}
-            //else
-            //{
-            //    return Request.CreateResponse(HttpStatusCode.Unauthorized);
-            //}
-            //return _companyDetailsService.GetAllCompanyDetails();
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.Unauthorized);
+            }
         }
 
         // GET api/CompanyDetails/GetCompanyById/5
+        /// <summary>
+        /// Returns single company record
+        /// </summary>
+        /// <param name="id">of type int record ID</param>
+        /// <returns>single company record for edit</returns>
         [HttpGet]
         [Route("api/CompanyDetails/GetCompanyById/{id}")]
-        public CompanyDetailsVM GetCompanyById(int id)
+        public HttpResponseMessage GetCompanyById(int id)
         {
-            return _companyDetailsService.GetCompanyById(id);
+            string userName = Thread.CurrentPrincipal.Identity.Name;
+            if (userName != "")
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, _companyDetailsService.GetCompanyById(id));
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.Unauthorized);
+            }
         }
 
         // POST api/CompanyDetails
+        /// <summary>
+        /// Insert new Record
+        /// </summary>
+        /// <param name="model">of type CompanyDetailsVM data to insert</param>
+        /// <returns>Return true or false based on insert operation</returns>
         [HttpPost]
         [Route("api/CompanyDetails/AddCompany")]
-        public bool AddCompany([FromBody]CompanyDetailsVM model)
+        public HttpResponseMessage AddCompany([FromBody]CompanyDetailsVM model)
         {
-            return  _companyDetailsService.AddCompany(model);
+            string userName = Thread.CurrentPrincipal.Identity.Name;
+            if (userName != "")
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, _companyDetailsService.AddCompany(model));
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.Unauthorized);
+            }
         }
 
         // PUT api/CompanyDetails/UpdateCompany
+        /// <summary>
+        /// Update existing Record
+        /// </summary>
+        /// <param name="model">of type CompanyDetailsVM data to insert</param>
+        /// <returns>Return true or false based on update operation</returns>
         [HttpPut]
         [Route("api/CompanyDetails/UpdateCompany")]
-        public bool UpdateCompany([FromBody]CompanyDetailsVM model)
+        public HttpResponseMessage UpdateCompany([FromBody]CompanyDetailsVM model)
         {
-            return _companyDetailsService.UpdateCompany(model);
+            string userName = Thread.CurrentPrincipal.Identity.Name;
+            if (userName != "")
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, _companyDetailsService.UpdateCompany(model));
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.Unauthorized);
+            }
         }
 
         // PUT api/CompanyDetails/ActivateCompany/5
-        //[HttpPut]
-        [HttpGet]
-        [Route("api/CompanyDetails/ActivateCompany/{id}")]
-        public bool ActivateCompany(int id)
+        /// <summary>
+        /// Activate company to allow acces to other user
+        /// </summary>
+        /// <param name="id">of type int activate company based on id</param>
+        /// <returns>Return true or false based on operation</returns>
+        [HttpPut]
+        [Route("api/CompanyDetails/ActivateCompany")]
+        public HttpResponseMessage ActivateCompany([FromBody]int id)
         {
-            return _companyDetailsService.ActivateCompany(id);
+            if (AccountService.IsAdmin())
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, _companyDetailsService.ActivateCompany(id));
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.Unauthorized);
+            }
         }
 
         // PUT api/CompanyDetails/DeactivateCompany/5
-        //[HttpPut]
-        [HttpGet]
-        [Route("api/CompanyDetails/DeactivateCompany/{id}")]
-        public bool DeactivateCompany(int id)
+        /// <summary>
+        /// DeactivateCompany company to allow acces to other user
+        /// </summary>
+        /// <param name="id">of type int DeactivateCompany company based on id</param>
+        /// <returns>Return true or false based on operation</returns>
+        [HttpPut]
+        [Route("api/CompanyDetails/DeactivateCompany")]
+        public HttpResponseMessage DeactivateCompany([FromBody]int id)
         {
-            return _companyDetailsService.DeactivateCompany(id);
+            if (AccountService.IsAdmin())
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, _companyDetailsService.DeactivateCompany(id));
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.Unauthorized);
+            }
         }
     }
 }

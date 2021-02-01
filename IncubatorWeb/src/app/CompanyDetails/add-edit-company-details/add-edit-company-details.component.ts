@@ -37,14 +37,15 @@ export class AddEditCompanyDetailsComponent implements OnInit {
   constructor(private _sharedService: SharedService, private _route: ActivatedRoute, private _router: Router, fb: FormBuilder, private _companyDetailsService: CompanyDetailsService) {
     this.addEditForm = fb.group({
       CompanyStatus:[1, [Validators.required]],
-      CompanyName:['', [Validators.required, Validators.maxLength(200), Validators.pattern('[a-zA-Z]+[\sa-zA-Z]*')]],
-      ManagingPartner:['', [Validators.required, Validators.maxLength(50), Validators.pattern('[a-zA-Z]+[\sa-zA-Z]*')]],
+      CompanyName:['', [Validators.required, Validators.maxLength(200), Validators.pattern('[a-zA-Z]+[a-zA-Z\\s]*')]],
+      ManagingPartner:['', [Validators.required, Validators.maxLength(50), Validators.pattern('[a-zA-Z]+[a-zA-Z\\s]*')]],
       LaunchedYear:['', [Validators.required, Validators.min(0), Validators.max(9999)]],
       Stage:['', [Validators.required]],
       NumberOfMembers:['', [Validators.required, Validators.min(0), Validators.max(99999999)]],
       WebSite:['', [Validators.maxLength(50), Validators.pattern('[a-zA-Z]+.*')]],
       Email:['', [Validators.required, Validators.maxLength(50), Validators.pattern('([a-zA-Z0-9]+([._-][a-zA-Z0-9]+)*)@[a-zA-Z0-9]+(\.[a-zA-Z]{2,3}){1}(?:\.[a-zA-Z]{2,3})?')]],
       Phone:['', [Validators.required, Validators.pattern('[1-9][0-9]{9}')]],
+      Country:['', [Validators.required, Validators.maxLength(80), Validators.pattern('[a-zA-Z]+')]],
       City:['', [Validators.required, Validators.maxLength(80), Validators.pattern('[a-zA-Z]+')]],
       Pincode:['', [Validators.required, Validators.pattern('[0-9]{6}')]],
     });
@@ -89,6 +90,7 @@ export class AddEditCompanyDetailsComponent implements OnInit {
       WebSite:          this.oldData.WebSite, 
       Email:            this.oldData.Email, 
       Phone:            this.oldData.Phone, 
+      Country:          this.oldData.Country, 
       City:             this.oldData.City, 
       Pincode:          this.oldData.Pincode,
     });
@@ -114,6 +116,7 @@ export class AddEditCompanyDetailsComponent implements OnInit {
       WebSite:          this.addEditForm.controls['WebSite'].value, 
       Email:            this.addEditForm.controls['Email'].value, 
       Phone:            this.addEditForm.controls['Phone'].value, 
+      Country:             this.addEditForm.controls['Country'].value, 
       City:             this.addEditForm.controls['City'].value, 
       Pincode:          this.addEditForm.controls['Pincode'].value
     };
