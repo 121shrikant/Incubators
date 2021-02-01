@@ -12,6 +12,8 @@ namespace IncubatorBusinessLayer.Interface
     { 
         List<CompanyDetailsVM> GetAllCompanyDetails();
         CompanyDetailsVM GetCompanyById(int id);
+        bool AddCompany(CompanyDetailsVM model);
+        bool UpdateCompany(CompanyDetailsVM model);
         bool ActivateCompany(int id);
         bool DeactivateCompany(int id);
     }

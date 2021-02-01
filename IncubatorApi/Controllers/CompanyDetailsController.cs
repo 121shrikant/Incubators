@@ -46,15 +46,17 @@ namespace IncubatorsApi.Controllers
         // POST api/CompanyDetails
         [HttpPost]
         [Route("api/CompanyDetails/AddCompany")]
-        public void AddCompany([FromBody]string value)
+        public bool AddCompany([FromBody]CompanyDetailsVM model)
         {
+            return  _companyDetailsService.AddCompany(model);
         }
 
-        // PUT api/CompanyDetails/UpdateCompany/5
+        // PUT api/CompanyDetails/UpdateCompany
         [HttpPut]
-        [Route("api/CompanyDetails/UpdateCompany/{id}")]
-        public void UpdateCompany(int id, [FromBody]string value)
+        [Route("api/CompanyDetails/UpdateCompany")]
+        public bool UpdateCompany([FromBody]CompanyDetailsVM model)
         {
+            return _companyDetailsService.UpdateCompany(model);
         }
 
         // PUT api/CompanyDetails/ActivateCompany/5

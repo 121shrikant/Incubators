@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { DataStateChangeEvent } from '@progress/kendo-angular-grid';
 import { CompanyDetailsService } from 'src/app/Services/company-details.service';
 import { CompanyDetailsVM } from 'src/app/ViewModels';
-import { State } from '@progress/kendo-data-query';
+import { SortDescriptor, State } from '@progress/kendo-data-query';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { SharedService } from 'src/app/Services/shared.service';
 
 @Component({
   selector: 'app-company-details-grid',
@@ -12,33 +15,57 @@ import { State } from '@progress/kendo-data-query';
 export class CompanyDetailsGridComponent implements OnInit {
 
   companyDetailsList = Array<CompanyDetailsVM>();
-  constructor(private _companyDetailsService: CompanyDetailsService) { }
-
-  public state: State = {
+  public state = <State>{
     skip: 0,
-    take: 5
+    take: 5,
+    sort: Array<SortDescriptor>()
   }; 
-  ngOnInit(): void {
-    // this._companyDetailsService.GetAllCompanyDetails().subscribe(data => {
-    //   this.companyDetailsList = data;
-    // });
-    this.companyDetailsList.push(<any>{
+  private _subscriptions: Subscription[] = [];
 
-      City: "Delhi"
-      , CompanyName: "Samsung"
-      , CompanyStatus: 1
-      , Country: "India"
-      , CreatedBy: 1
-      , Email: "Samsung@gmail.com"
-      , Id: 1
-      , LaunchedYear: 2020
-      , ManagingPartner: "suresh"
-      , NumberOfMembers: 15
-      , Phone: "9876543210"
-      , Pincode: 422007
-      , Stage: 5
-      , WebSite: "www.Samsung.com"
-    });
+  constructor(private _companyDetailsService: CompanyDetailsService,
+              private _router: Router,
+              private _sharedService: SharedService
+              ) { }
+
+  ngOnInit(): void {
+    
+  }
+  GetAllCompanyDetails() {
+    this._subscriptions.push(
+      this._companyDetailsService.GetAllCompanyDetails().subscribe(data => {
+        this.companyDetailsList = data;
+      })
+    );
+  }
+  EditRecord(id: number) {
+    this._router.navigate([`CompanyDetails/AddEdit/1/${id}`]);
+  }
+  AddRecord() {
+    this._router.navigate([`CompanyDetails/AddEdit/0`]);
+  }
+
+  Deactivate(id: number) {
+    this._subscriptions.push(
+      this._companyDetailsService.DeactivateCompany(id).subscribe( res => {
+        if (res !== null && res) {
+          this.GetAllCompanyDetails();
+        } else {
+          this._sharedService.dataInvalid.next(true);
+        }
+      })
+    );
+  }
+
+  Activate(id: number) {
+    this._subscriptions.push(
+      this._companyDetailsService.ActivateCompany(id).subscribe( res => {
+        if (res !== null && res) {
+          this.GetAllCompanyDetails();
+        } else {
+          this._sharedService.dataInvalid.next(true);
+        }
+      })
+    );
   }
 
   public dataStateChange(state: DataStateChangeEvent): void {

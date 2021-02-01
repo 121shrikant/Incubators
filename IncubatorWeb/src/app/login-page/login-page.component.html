@@ -15,6 +15,10 @@
       <label for="exampleInputPassword1">Password</label>
       <input type="password" class="form-control" formControlName="password" placeholder="Password">
     </div>
+    <small class="form-text text-danger" 
+        *ngIf="showErrorMsg">
+          Please enter valid user name & password.
+    </small>
     <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid" (click)= "login()">Submit</button>
   </form>
 </div>

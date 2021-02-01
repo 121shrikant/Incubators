@@ -17,7 +17,7 @@ export class RetryInterceptor implements HttpInterceptor {
      }
      intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
           return next.handle(request).pipe(
-               retry(environment.retryCount),
+               // retry(environment.retryCount),
                catchError((err: HttpErrorResponse) => {
                     console.log('500 status: ', err);
                     if (err.status === 401) {

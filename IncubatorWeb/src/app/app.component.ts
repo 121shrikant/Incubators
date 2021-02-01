@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SharedService } from './Services/shared.service';
 import { SpinnerService } from './Services/spinner.service';
 import { UserDetailsVm } from './ViewModels';
@@ -10,23 +11,36 @@ import { UserDetailsVm } from './ViewModels';
 })
 export class AppComponent implements OnInit {
   title = 'IncubatorWeb';
-  showSpinner = false;
-
-  constructor(private spinnerService: SpinnerService, private _sharedService: SharedService) {
-    let userData = null;
+  dataInvalid = false;
+  userData = <UserDetailsVm>{};
+  constructor( private _sharedService: SharedService, private _router: Router, private _activatedRoute: ActivatedRoute) {
     const tempData = localStorage.getItem('currentUser');
     if (tempData === null) {
-      userData = <UserDetailsVm>{};
+      this.userData = <UserDetailsVm>{};
     } else {
-      userData = JSON.parse(tempData);
+      this.userData = JSON.parse(tempData);
     }
-    this._sharedService.currentUserSubject.next(userData);
+    this._sharedService.currentUserSubject.next(this.userData);
   }
   ngOnInit(): void {
-    setTimeout(() => {
-      this.spinnerService.isSpinning.subscribe(val => {
-        this.showSpinner = val;
-      });
-    }, 0);
+    this._sharedService.currentUserSubject.subscribe(x => this.userData = x); 
+    this._sharedService.dataInvalid.subscribe(val => {
+      this.dataInvalid = val;
+      if (val) {
+        alert('Data Not found');
+        this._router.navigate([''], { relativeTo: this._activatedRoute });
+        this._sharedService.dataInvalid.next(false);
+      }
+    });
+  }
+
+  validUser() {
+    return this.userData.UserName != null && this.userData.UserName != undefined;
+  }
+  logoutAndNavigate() {
+    // remove user from local storage to log user out
+    localStorage.removeItem('currentUser');
+    this._sharedService.currentUserSubject.next(<UserDetailsVm>{});
+    this._router.navigate(['login']);
   }
 }

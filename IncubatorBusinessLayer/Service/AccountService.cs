@@ -1,9 +1,11 @@
-﻿using IncubatorBusinessLayer.Interface;
+﻿using IncubatorBusinessLayer.Enums;
+using IncubatorBusinessLayer.Interface;
 using IncubatorBusinessLayer.Models;
 using IncubatorData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 
 namespace IncubatorBusinessLayer.Service
@@ -39,6 +41,21 @@ namespace IncubatorBusinessLayer.Service
                 userDetails = db.UserDetails.Where(x => x.UserName.Equals(UserName, StringComparison.OrdinalIgnoreCase) && x.Password == Password).FirstOrDefault();
             }
             if (userDetails != null)
+                return true;
+            else
+                return false;
+        }
+
+        public static bool IsAdmin()
+        {
+            string userName = Thread.CurrentPrincipal.Identity.Name;
+
+            UserDetail userDetails = new UserDetail();
+            using (GrowUpIncubatorEntities db = new GrowUpIncubatorEntities())
+            {
+                userDetails = db.UserDetails.Where(x => x.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+            }
+            if (userDetails != null && (RoleTypeEnum)userDetails.RoleType == RoleTypeEnum.Admin)
                 return true;
             else
                 return false;

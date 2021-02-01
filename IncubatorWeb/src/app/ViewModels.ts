@@ -1,4 +1,4 @@
-import { CompanyStageEnum, CompanyStatusEnum } from "./Enums";
+import { CompanyStageEnum, CompanyStatusEnum, RoleTypeEnum } from "./Enums";
 
 export interface externalDataModel {
     providerextends: string;
@@ -37,7 +37,7 @@ export interface UserDetails
     Id: number;
     UserName: string;
     Password: string;
-    RoleType: number;
+    RoleType: RoleTypeEnum;
 }
 export interface UserDetailsVm extends UserDetails
 {

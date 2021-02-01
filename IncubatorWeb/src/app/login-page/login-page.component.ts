@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { AuthenticationService } from '../Services/Authentication.service';
 import { SharedService } from '../Services/shared.service';
@@ -14,10 +15,14 @@ export class LoginPageComponent implements OnInit {
 
   loginForm: FormGroup;
   private _subscriptions: Subscription[] = [];
+  showErrorMsg = false;
 
 
 
-  constructor(private authenticationService: AuthenticationService, private _sharedService: SharedService, fb: FormBuilder) {
+  constructor(private authenticationService: AuthenticationService,
+             private _sharedService: SharedService, 
+             fb: FormBuilder,
+             private _router: Router) {
     this.loginForm = fb.group({
       userName:['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
       password:['', [Validators.required]]
@@ -28,16 +33,10 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {
     
   }
-  onSubmit() {
-    if(this.loginForm.valid) {
-      
-    }
-  }
 
-  login() {
-    console.log('loginForm: ', this.loginForm);
-    
+  login() {    
     if(this.loginForm.valid) {
+      this.showErrorMsg = false;
       const _username = this.loginForm.controls['userName'].value;
       const _password = this.loginForm.controls['password'].value;
       const loginDetails = <LoginDetails>{
@@ -46,18 +45,17 @@ export class LoginPageComponent implements OnInit {
       };
       this._subscriptions.push(
         this.authenticationService.Login(loginDetails).subscribe(user => {
-          user.authdata = window.btoa(_username + ':' + _password);
-          localStorage.setItem('currentUser', JSON.stringify(user));
-          this._sharedService.currentUserSubject.next(user);
+          if (user == null || user.UserName == null) {
+            this.showErrorMsg = true;
+          } else {
+            user.authdata = window.btoa(_username + ':' + _password);
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            this._sharedService.currentUserSubject.next(user);
+            this._router.navigate(['']);
+          }
         })
       );
     }
-  }
-
-  logout() {
-      // remove user from local storage to log user out
-      localStorage.removeItem('currentUser');
-      this._sharedService.currentUserSubject.next(<UserDetailsVm>{});
   }
 
   ngOnDestroy() {

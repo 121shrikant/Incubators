@@ -1,14 +1,102 @@
-<kendo-grid
-          [data]="view"
-          [pageSize]="state.take"
-          [skip]="state.skip"
-          [sort]="state.sort"
-          [sortable]="true"
+<div class= "container">
+<div class="row my-5">
+        <button class="btn btn-primary" (click)= "AddRecord()">Add Company Details</button>
+</div>
+<div class="my-5">
+    <kendo-grid
+          [data]="companyDetailsList"
+          [pageSize]="state.take || 0"
+          [skip]="state.skip || 0"
+          [sort]="state.sort || []"
+          [sortable]="false"
           [pageable]="true"
-          scrollable="none"
           (dataStateChange)="dataStateChange($event)"
         >
-        <kendo-grid-column field="Id" width="130"></kendo-grid-column>
-        <kendo-grid-column field="CompanyName" width="200"></kendo-grid-column>
-        <kendo-grid-column field="City" [sortable]="false"></kendo-grid-column>
+        <kendo-grid-column 
+                    title = "Edit" 
+                    [width]="100"
+                    >
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                        <button class="btn btn-warning" (click)= "EditRecord(dataItem.Id)">Edit</button>
+                    </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column 
+                    title = "Id" 
+                    field="Id"
+                    [width]="100"
+                    >
+        </kendo-grid-column>
+        <kendo-grid-column 
+                    title = "Status" 
+                    field="CompanyStatus"
+                    [width]="200"
+                    >
+                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                        <button class="btn btn-danger" *ngIf="dataItem.CompanyStatus == 1 " (click)= "Deactivate(dataItem.Id)">Deactivate</button>
+                        <button class="btn btn-success" *ngIf="dataItem.CompanyStatus != 1 " (click)= "Activate(dataItem.Id)">Activate</button>
+                    </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-column 
+                    title = "Company Name" 
+                    field="CompanyName"
+                    [width]="200"
+                    >
+        </kendo-grid-column>
+        <kendo-grid-column 
+                    title = "Managing Partner" 
+                    field="ManagingPartner"
+                    [width]="200"
+                    >
+        </kendo-grid-column>
+        <kendo-grid-column 
+                    title = "Launched Year" 
+                    field="LaunchedYear"
+                    [width]="200"
+                    >
+        </kendo-grid-column>
+        <kendo-grid-column 
+                    title = "Stage" 
+                    field="Stage"
+                    [width]="200"
+                    >
+        </kendo-grid-column>
+        <kendo-grid-column 
+                    title = "No. Of Members" 
+                    field="NumberOfMembers"
+                    [width]="200"
+                    >
+        </kendo-grid-column>
+        <kendo-grid-column 
+                    title = "Web-Site" 
+                    field="WebSite"
+                    [width]="200"
+                    >
+        </kendo-grid-column>
+        <kendo-grid-column 
+                    title = "Email" 
+                    field="Email"
+                    [width]="200"
+                    >
+        </kendo-grid-column>
+        <kendo-grid-column
+                    title = "Phone" 
+                    field="Phone"
+                    [width]="100"
+                    >
+        </kendo-grid-column>
+        <kendo-grid-column
+                    title = "City" 
+                    field="City"
+                    [width]="100"
+                    >
+        </kendo-grid-column>
+        <kendo-grid-column 
+                    title = "Pincode" 
+                    field="Pincode"
+                    [width]="100"
+                    >
+        </kendo-grid-column>
 </kendo-grid>
+
+</div>
+</div>
