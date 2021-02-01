@@ -19,15 +19,15 @@ namespace IncubatorBusinessLayer.Service
             {
                 dbCompanyList = db.CompanyDetails.ToList();
             }
-
+            // Can use AutoMapper
             List<CompanyDetailsVM> companyDetails = dbCompanyList.Select(x => new CompanyDetailsVM()
             {
                 Id = x.Id,
-                CompanyStatus = x.CompanyStatus,
+                CompanyStatus = (CompanyStatusEnum)x.CompanyStatus,
                 CompanyName = x.CompanyName,
                 ManagingPartner = x.ManagingPartner,
                 LaunchedYear = x.LaunchedYear,
-                Stage = x.Stage,
+                Stage = (CompanyStageEnum)x.Stage,
                 NumberOfMembers = x.NumberOfMembers,
                 WebSite = x.WebSite,
                 Email = x.Email,
@@ -53,11 +53,11 @@ namespace IncubatorBusinessLayer.Service
                 companyDetails = new CompanyDetailsVM()
                 {
                     Id = dbCompanyList.Id,
-                    CompanyStatus = dbCompanyList.CompanyStatus,
+                    CompanyStatus = (CompanyStatusEnum)dbCompanyList.CompanyStatus,
                     CompanyName = dbCompanyList.CompanyName,
                     ManagingPartner = dbCompanyList.ManagingPartner,
                     LaunchedYear = dbCompanyList.LaunchedYear,
-                    Stage = dbCompanyList.Stage,
+                    Stage = (CompanyStageEnum)dbCompanyList.Stage,
                     NumberOfMembers = dbCompanyList.NumberOfMembers,
                     WebSite = dbCompanyList.WebSite,
                     Email = dbCompanyList.Email,

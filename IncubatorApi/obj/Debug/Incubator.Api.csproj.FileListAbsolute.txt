@@ -62,3 +62,6 @@ C:\Users\shrikant\source\repos\121shrikant\Incubators\IncubatorApi\bin\EntityFra
 C:\Users\shrikant\source\repos\121shrikant\Incubators\IncubatorApi\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\shrikant\source\repos\121shrikant\Incubators\IncubatorApi\bin\Swashbuckle.Core.dll
 C:\Users\shrikant\source\repos\121shrikant\Incubators\IncubatorApi\bin\WebActivatorEx.dll
+C:\Users\shrikant\source\repos\121shrikant\Incubators\IncubatorApi\bin\System.Web.Cors.dll
+C:\Users\shrikant\source\repos\121shrikant\Incubators\IncubatorApi\bin\System.Web.Http.Cors.dll
+C:\Users\shrikant\source\repos\121shrikant\Incubators\IncubatorApi\bin\System.Web.Http.Cors.xml

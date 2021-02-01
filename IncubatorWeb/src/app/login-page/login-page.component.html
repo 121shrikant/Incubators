@@ -1,0 +1,20 @@
+<h4 class="text-center">Login Page</h4>
+
+<div class="container">
+	<form [formGroup]="loginForm">
+		<div class="form-group">
+			<label for="exampleInputEmail1">User Name</label>
+      <input type="text" class="form-control" formControlName="userName" placeholder="Enter userName">
+      <small class="form-text text-muted" 
+        *ngIf="loginForm.controls.userName.touched && loginForm.controls.userName.errors?.required">
+          Please enter valid user name.!
+      </small>
+    </div>
+    
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control" formControlName="password" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid" (click)= "login()">Submit</button>
+  </form>
+</div>

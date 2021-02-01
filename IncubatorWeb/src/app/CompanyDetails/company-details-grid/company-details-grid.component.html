@@ -1,0 +1,14 @@
+<kendo-grid
+          [data]="view"
+          [pageSize]="state.take"
+          [skip]="state.skip"
+          [sort]="state.sort"
+          [sortable]="true"
+          [pageable]="true"
+          scrollable="none"
+          (dataStateChange)="dataStateChange($event)"
+        >
+        <kendo-grid-column field="Id" width="130"></kendo-grid-column>
+        <kendo-grid-column field="CompanyName" width="200"></kendo-grid-column>
+        <kendo-grid-column field="City" [sortable]="false"></kendo-grid-column>
+</kendo-grid>

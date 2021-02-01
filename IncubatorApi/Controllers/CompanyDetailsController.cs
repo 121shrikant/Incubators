@@ -1,10 +1,15 @@
-﻿using IncubatorBusinessLayer.Interface;
+﻿using IncubatorApi.Controllers;
+using IncubatorBusinessLayer.Interface;
 using IncubatorBusinessLayer.Models;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Threading;
 using System.Web.Http;
 
 namespace IncubatorsApi.Controllers
 {
+    [BasicAuthentication]
     public class CompanyDetailsController : ApiController
     {
         private ICompanyDetailsService _companyDetailsService;
@@ -16,9 +21,18 @@ namespace IncubatorsApi.Controllers
         // GET api/CompanyDetails/GetAllCompanyDetails
         [HttpGet]
         [Route("api/CompanyDetails/GetAllCompanyDetails")]
-        public IEnumerable<CompanyDetailsVM> GetAllCompanyDetails()
+        public HttpResponseMessage GetAllCompanyDetails()
         {
-            return _companyDetailsService.GetAllCompanyDetails();
+            //string userName = Thread.CurrentPrincipal.Identity.Name;
+            //if (userName != "")
+            //{
+                return Request.CreateResponse(HttpStatusCode.OK, _companyDetailsService.GetAllCompanyDetails());
+            //}
+            //else
+            //{
+            //    return Request.CreateResponse(HttpStatusCode.Unauthorized);
+            //}
+            //return _companyDetailsService.GetAllCompanyDetails();
         }
 
         // GET api/CompanyDetails/GetCompanyById/5

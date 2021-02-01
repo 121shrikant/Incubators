@@ -17,6 +17,7 @@ namespace IncubatorApi
 
             // e.g. container.RegisterType<ITestService, TestService>();
             container.RegisterType<ICompanyDetailsService, CompanyDetailsService>();
+            container.RegisterType<IAccountService, AccountService>();
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
     }
